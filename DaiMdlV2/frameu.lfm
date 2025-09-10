@@ -1,0 +1,29 @@
+object FrameForm: TFrameForm
+  Left = 876
+  Height = 411
+  Top = 315
+  Width = 264
+  BorderStyle = bsSizeToolWin
+  Caption = 'Frame List'
+  ClientHeight = 411
+  ClientWidth = 264
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsStayOnTop
+  Position = poDefault
+  LCLVersion = '4.2.0.0'
+  OnClose = FormClose
+  object ListBox1: TListBox
+    Left = 0
+    Height = 411
+    Top = 0
+    Width = 264
+    Align = alClient
+    ItemHeight = 0
+    TabOrder = 0
+    OnClick = ListBox1DblClick
+    OnDblClick = ListBox1DblClick
+  end
+end

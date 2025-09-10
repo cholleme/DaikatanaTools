@@ -1,0 +1,5 @@
+# Ignore all files in any subfolder named 'backup'
+**/backup/**
+
+# Ignore all files in any subfolder named 'lib'
+**/lib/**

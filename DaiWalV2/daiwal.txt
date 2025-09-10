@@ -1,0 +1,29 @@
+DaiWAL readme file
+------------------
+DaiWAL will read and convert daikatana wal files.
+It now also supports bmp to wal conversion.
+You can use batch conversion to convert all files.
+
+Notes:
+
+-You can bind wal files to this program so that windows automatically opens the wal when you double click it.  To do this you will need to edit the daiwal.reg file.  Where you find E:\\programmeren\\daiwal\\daiwal.exe replace it with the path where you put daiwal. Make sure you use \\ instead of \ for your dirs.  Then include the daiwal.reg file in your registry
+-Only miplevel0 will be converted to bmp.
+-If your bitmap doesn't have 8bit colours it is automatically converted to 8bit.
+-Your skin's size must be a power of 2 and smaller than 256.  This is a limitation of daikatana not daiwal.
+-If you are designing body skins for the player models make sure they have the same palette as the head skin in the game.
+-If you want all the files converted at once use 
+	eg: "daiwal.exe -c E:\daikatana\*.wal" to convert all wall files to bmp
+	and "daiwal.exe -e E:\daikatana\*.bmp" to convert all bmp files to wall
+	Do not use *.* or daiwal will try to convert all files.
+
+Updates:
+-http://blackrose.gameseek.com
+
+Author: 
+Charles Hollemeersch
+Uses the fastlib library for Delphi by Gordon A. Cowie(www.jps.net/gfody).
+
+E-Mail:
+-c_hollemeersch@hotmail.com
+
+

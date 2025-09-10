@@ -1,0 +1,119 @@
+object Form1: TForm1
+  Left = 348
+  Height = 256
+  Top = 198
+  Width = 256
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'DaiWAL'
+  ClientHeight = 236
+  ClientWidth = 256
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Menu = MainMenu1
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnPaint = FormPaint
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 96
+    Height = 13
+    Top = 96
+    Width = 60
+    Caption = 'Converting...'
+    ParentColor = False
+    Visible = False
+  end
+  object MainMenu1: TMainMenu
+    Left = 136
+    Top = 8
+    object File1: TMenuItem
+      Caption = 'File'
+      object Open1: TMenuItem
+        Caption = 'Open...'
+        OnClick = Open1Click
+      end
+      object Save1: TMenuItem
+        Caption = 'Save...'
+        OnClick = Save1Click
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Import1: TMenuItem
+        Caption = 'Import...'
+        OnClick = Import1Click
+      end
+      object Export1: TMenuItem
+        Caption = 'Export...'
+        OnClick = Export1Click
+      end
+    end
+    object MipMenuItem: TMenuItem
+      Caption = 'Mip Maps'
+      object Mip0: TMenuItem
+        Caption = 'Mip 0'
+        OnClick = Mip0Click
+      end
+      object Mip1: TMenuItem
+        Tag = 1
+        Caption = 'Mip 1'
+        OnClick = Mip0Click
+      end
+      object Mip2: TMenuItem
+        Tag = 2
+        Caption = 'Mip 2'
+        OnClick = Mip0Click
+      end
+      object Mip3: TMenuItem
+        Tag = 3
+        Caption = 'Mip 3'
+        OnClick = Mip0Click
+      end
+      object Mip4: TMenuItem
+        Tag = 4
+        Caption = 'Mip 4'
+        OnClick = Mip0Click
+      end
+      object Mip5: TMenuItem
+        Tag = 5
+        Caption = 'Mip 5'
+        OnClick = Mip0Click
+      end
+      object Mip6: TMenuItem
+        Tag = 6
+        Caption = 'Mip 6'
+        OnClick = Mip0Click
+      end
+      object Mip7: TMenuItem
+        Tag = 7
+        Caption = 'Mip 7'
+        OnClick = Mip0Click
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = 'Daikatana mipmap textures(*.wal)|*.wal'
+    Left = 8
+    Top = 8
+  end
+  object SaveDialog2: TSaveDialog
+    DefaultExt = '.wal'
+    Filter = 'Daikatana mipmap textures(*.wal)|*.wal'
+    Left = 104
+    Top = 8
+  end
+  object OpenDialog2: TOpenPictureDialog
+    Filter = 'Bitmaps (*.bmp)|*.bmp'
+    Left = 72
+    Top = 8
+  end
+  object SaveDialog1: TSavePictureDialog
+    DefaultExt = '.bmp'
+    Filter = 'Bitmaps (*.bmp)|*.bmp'
+    Left = 40
+    Top = 8
+  end
+end

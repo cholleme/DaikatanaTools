@@ -1,0 +1,65 @@
+object ViewForm: TViewForm
+  Left = 762
+  Height = 720
+  Top = 380
+  Width = 1044
+  Caption = '3D View'
+  ClientHeight = 720
+  ClientWidth = 1044
+  DesignTimePPI = 144
+  DoubleBuffered = False
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsMDIChild
+  Icon.Data = {
+    3E01000000000100010010101000000000002801000016000000280000001000
+    0000200000000100040000000000C00000000000000000000000000000000000
+    000000000000000080000080000000808000800000008000800080800000C0C0
+    C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFF
+    FF00000000000000FFFF00FF000000000F0000FF0000000000F00000F0000000
+    FFFF0F0F0F00000000000F0F00F000000F0000F0000FFFFFFFF00F0F000F0000
+    0F000F0F000F000000000000000F000000000000000F000000000000000F0000
+    00000000000F000F0000000000FFF00F00000000000F00F0F0000000000000F0
+    F000CFF0000087FB000087FD0000C3F00000A1FB0000A8010000DC000000AC01
+    0000AC7B0000FC7F0000FC7F0000FC7F0000FC6F0000F82F0000FC570000FED7
+    0000
+  }
+  ParentDoubleBuffered = False
+  Position = poDefault
+  LCLVersion = '4.2.0.0'
+  Visible = True
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnMouseDown = FormMouseDown
+  OnMouseMove = FormMouseMove
+  OnMouseUp = FormMouseUp
+  OnPaint = FormPaint
+  OnResize = FormResize
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 36
+    Top = 684
+    Width = 1044
+    Panels = <    
+      item
+        Text = 'Frame:'
+        Width = 150
+      end    
+      item
+        Text = 'Zoom:'
+        Width = 150
+      end    
+      item
+        Text = 'Angle1:'
+        Width = 150
+      end    
+      item
+        Text = 'Angle2'
+        Width = 75
+      end>
+    SimplePanel = False
+  end
+end

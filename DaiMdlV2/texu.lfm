@@ -1,0 +1,43 @@
+object WireForm: TWireForm
+  Left = 1928
+  Height = 384
+  Top = 338
+  Width = 384
+  Caption = 'Skin wireframe'
+  ClientHeight = 384
+  ClientWidth = 384
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  Menu = MainMenu1
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
+  OnPaint = FormPaint
+  OnShow = FormActivate
+  object Image1: TImage
+    Left = 0
+    Height = 384
+    Top = 0
+    Width = 384
+    Align = alClient
+    OnClick = FormPaint
+  end
+  object MainMenu1: TMainMenu
+    Left = 60
+    Top = 12
+    object File1: TMenuItem
+      Caption = 'File'
+      object Savewireframe1: TMenuItem
+        Caption = 'Save wireframe'
+        OnClick = Savewireframe1Click
+      end
+    end
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    Filter = 'All (*.bmp;*.ico;*.emf;*.wmf)|*.bmp;*.ico;*.emf;*.wmf|Bitmaps (*.bmp)|*.bmp|Icons (*.ico)|*.ico|Enhanced Metafiles (*.emf)|*.emf|Metafiles (*.wmf)|*.wmf'
+    Left = 12
+    Top = 12
+  end
+end

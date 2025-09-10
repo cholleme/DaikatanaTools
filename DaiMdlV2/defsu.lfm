@@ -1,0 +1,269 @@
+object DefsForm: TDefsForm
+  Left = 227
+  Height = 534
+  Top = 108
+  Width = 576
+  BorderStyle = bsDialog
+  Caption = 'Defs Editor'
+  ClientHeight = 534
+  ClientWidth = 576
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  object OKBtn: TButton
+    Left = 450
+    Height = 38
+    Top = 12
+    Width = 112
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 0
+  end
+  object CancelBtn: TButton
+    Left = 450
+    Height = 38
+    Top = 57
+    Width = 112
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 1
+  end
+  object GroupBox1: TGroupBox
+    Left = 0
+    Height = 350
+    Top = 12
+    Width = 434
+    Caption = ' Flags '
+    ClientHeight = 325
+    ClientWidth = 430
+    TabOrder = 2
+    object CheckBox1: TCheckBox
+      Tag = 1
+      Left = 24
+      Height = 24
+      Top = 60
+      Width = 130
+      Caption = '1(Transparent)'
+      TabOrder = 0
+    end
+    object CheckBox2: TCheckBox
+      Tag = 2
+      Left = 24
+      Height = 24
+      Top = 96
+      Width = 100
+      Caption = '2(Masked)'
+      TabOrder = 1
+    end
+    object CheckBox3: TCheckBox
+      Tag = 4
+      Left = 24
+      Height = 24
+      Top = 132
+      Width = 153
+      Caption = '4(Enviro Mapping)'
+      TabOrder = 2
+    end
+    object CheckBox4: TCheckBox
+      Tag = 8
+      Left = 24
+      Height = 24
+      Top = 168
+      Width = 34
+      Caption = '8'
+      TabOrder = 3
+    end
+    object CheckBox5: TCheckBox
+      Tag = 16
+      Left = 24
+      Height = 24
+      Top = 204
+      Width = 43
+      Caption = '16'
+      TabOrder = 4
+    end
+    object CheckBox6: TCheckBox
+      Tag = 32
+      Left = 24
+      Height = 24
+      Top = 240
+      Width = 43
+      Caption = '32'
+      TabOrder = 5
+    end
+    object CheckBox7: TCheckBox
+      Tag = 64
+      Left = 24
+      Height = 24
+      Top = 276
+      Width = 43
+      Caption = '64'
+      TabOrder = 6
+    end
+    object CheckBox8: TCheckBox
+      Tag = 128
+      Left = 24
+      Height = 24
+      Top = 312
+      Width = 52
+      Caption = '128'
+      TabOrder = 7
+    end
+    object CheckBox9: TCheckBox
+      Tag = 32768
+      Left = 192
+      Height = 24
+      Top = 312
+      Width = 70
+      Caption = '32768'
+      TabOrder = 8
+    end
+    object CheckBox10: TCheckBox
+      Tag = 16384
+      Left = 192
+      Height = 24
+      Top = 276
+      Width = 70
+      Caption = '16384'
+      TabOrder = 9
+    end
+    object CheckBox11: TCheckBox
+      Tag = 8192
+      Left = 192
+      Height = 24
+      Top = 240
+      Width = 61
+      Caption = '8192'
+      TabOrder = 10
+    end
+    object CheckBox12: TCheckBox
+      Tag = 4096
+      Left = 192
+      Height = 24
+      Top = 204
+      Width = 61
+      Caption = '4096'
+      TabOrder = 11
+    end
+    object CheckBox13: TCheckBox
+      Tag = 2048
+      Left = 192
+      Height = 24
+      Top = 168
+      Width = 61
+      Caption = '2048'
+      TabOrder = 12
+    end
+    object CheckBox14: TCheckBox
+      Tag = 1024
+      Left = 192
+      Height = 24
+      Top = 132
+      Width = 61
+      Caption = '1024'
+      TabOrder = 13
+    end
+    object CheckBox15: TCheckBox
+      Tag = 512
+      Left = 192
+      Height = 24
+      Top = 96
+      Width = 52
+      Caption = '512'
+      TabOrder = 14
+    end
+    object CheckBox16: TCheckBox
+      Tag = 256
+      Left = 192
+      Height = 24
+      Top = 60
+      Width = 52
+      Caption = '256'
+      TabOrder = 15
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 0
+    Height = 158
+    Top = 372
+    Width = 434
+    Caption = 'Links: '
+    ClientHeight = 133
+    ClientWidth = 430
+    TabOrder = 3
+    object Label1: TLabel
+      Left = 12
+      Height = 20
+      Top = 60
+      Width = 64
+      Caption = 'Weapon:'
+    end
+    object Label2: TLabel
+      Left = 12
+      Height = 20
+      Top = 120
+      Width = 43
+      Caption = 'Flash:'
+    end
+    object Label3: TLabel
+      Left = 108
+      Height = 20
+      Top = 36
+      Width = 110
+      Caption = 'Vertex Indexes:'
+    end
+    object Edit1: TEdit
+      Left = 96
+      Height = 28
+      Top = 60
+      Width = 86
+      TabOrder = 0
+      Text = '0'
+    end
+    object Edit2: TEdit
+      Left = 180
+      Height = 28
+      Top = 60
+      Width = 86
+      TabOrder = 1
+      Text = '1'
+    end
+    object Edit3: TEdit
+      Left = 264
+      Height = 28
+      Top = 60
+      Width = 86
+      TabOrder = 2
+      Text = '2'
+    end
+    object Edit4: TEdit
+      Left = 96
+      Height = 28
+      Top = 108
+      Width = 86
+      TabOrder = 3
+      Text = '0'
+    end
+    object Edit5: TEdit
+      Left = 180
+      Height = 28
+      Top = 108
+      Width = 86
+      TabOrder = 4
+      Text = '1'
+    end
+    object Edit6: TEdit
+      Left = 264
+      Height = 28
+      Top = 108
+      Width = 86
+      TabOrder = 5
+      Text = '2'
+    end
+  end
+end

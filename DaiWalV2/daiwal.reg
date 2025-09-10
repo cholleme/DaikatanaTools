@@ -1,0 +1,20 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\.wal]
+@="DaiWal_wal_file"
+
+[HKEY_CLASSES_ROOT\DaiWal_wal_file]
+@="Daikatana texture"
+"AlwaysShowExt"=""
+
+[HKEY_CLASSES_ROOT\DaiWal_wal_file\shell]
+
+[HKEY_CLASSES_ROOT\DaiWal_wal_file\shell\open]
+@=""
+
+[HKEY_CLASSES_ROOT\DaiWal_wal_file\shell\open\command]
+@="E:\\programmeren\\daiwal\\daiwal.exe \"%1\""
+
+[HKEY_CLASSES_ROOT\QuArK_wal_file\DefaultIcon]
+@="E:\\programmeren\\daiwal\\daiwal.exe,0"
+

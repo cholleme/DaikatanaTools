@@ -1,0 +1,111 @@
+object AboutBox: TAboutBox
+  Left = 301
+  Height = 384
+  Top = 164
+  Width = 447
+  BorderStyle = bsDialog
+  Caption = 'About'
+  ClientHeight = 384
+  ClientWidth = 447
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  object Panel1: TPanel
+    Left = 12
+    Height = 314
+    Top = 12
+    Width = 422
+    BevelInner = bvRaised
+    BevelOuter = bvLowered
+    ClientHeight = 314
+    ClientWidth = 422
+    TabOrder = 0
+    object ProgramIcon: TImage
+      Left = 24
+      Height = 32
+      Top = 24
+      Width = 32
+      AutoSize = True
+      Picture.Data = {
+        055449636F6EFE0200000000010001002020100000000000E802000016000000
+        2800000020000000400000000100040000000000800200000000000000000000
+        0000000000000000000000000000800000800000008080008000000080008000
+        80800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00
+        FFFF0000FFFFFF00000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000000000000000BBBBBBBB
+        BBBBBBBB0000000000000000BBBBBBBBB00BBBBB0300000000000000BBBBBBBB
+        090BBBBB0330000099000000BBBBBBB0990BBBBB0333000000990000BBBBBB09
+        90BBBBBB0333009000009900BBBBB0990B000BBB0300099000009990BBBB0990
+        BB09000B03099990000009900BB0990BBB00990000900990000000990B0990BB
+        BBB099900303309000000099000900BBBBB00999033330900000009900990BBB
+        BBBBB09903333090000000099990BBBBBBBBB0990333309000000000900BBBBB
+        BBBBB0990333309000000000900BBBBBBBBBB009033330900099999999000000
+        0BBBBB090333309909999999999000000BBBBB09033330990000000999999999
+        9BBBBB0903333099000000000900999000000B09033330990000000009000000
+        00900009033330990000000009000000999999900000309900000000090BBBB0
+        000000999990009900000000090BBBBBBBBBB00999999999000000009000BBBB
+        BBBBBB00000009900000000000000BBBBBBBBBBBBBBBB0000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000FFFFFFFFFFFFFFFFFE00007FFE00003FFE00001F1E00000F
+        060000000000000080000000E0000000E0000000F0000000F8000000F8000000
+        FC000000FE00000080000000000000000000000000000000FC000000FF000000
+        FF000000FF000000FE000000FE200000FE300000FFF80003FFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFF
+      }
+      Stretch = True
+    end
+    object ProductName: TLabel
+      Left = 84
+      Height = 20
+      Top = 12
+      Width = 168
+      Caption = 'Daikatana model viewer'
+    end
+    object Version: TLabel
+      Left = 84
+      Height = 20
+      Top = 60
+      Width = 80
+      Caption = 'Version 1.0'
+    end
+    object Copyright: TLabel
+      Left = 84
+      Height = 20
+      Top = 36
+      Width = 258
+      Caption = '(c) 2000-2025 Charles Hollemeersch'
+    end
+    object Memo1: TMemo
+      Left = 12
+      Height = 206
+      Top = 84
+      Width = 398
+      Color = clBtnFace
+      Lines.Strings = (
+        'Website:'
+        'http://blackrose.gameseek.com'
+        'Notes:'
+        'Make sure you set your daikatana data directory '
+        'correctly in the options/more menu option.'
+        'Comments:'
+        'Thanks to Shawn Green and Noel Stephens for '
+        'helping me out with the model format.'
+      )
+      ReadOnly = True
+      TabOrder = 0
+    end
+  end
+  object BitBtn1: TBitBtn
+    Left = 156
+    Height = 38
+    Top = 336
+    Width = 112
+    Kind = bkOK
+    ModalResult = 1
+    TabOrder = 1
+  end
+end

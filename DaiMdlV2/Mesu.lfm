@@ -1,0 +1,27 @@
+object Messageform: TMessageform
+  Left = 925
+  Height = 520
+  Top = 346
+  Width = 1198
+  BorderStyle = bsSizeToolWin
+  Caption = 'Messages'
+  ClientHeight = 520
+  ClientWidth = 1198
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsStayOnTop
+  Position = poDefault
+  LCLVersion = '4.2.0.0'
+  Visible = True
+  OnCloseQuery = FormCloseQuery
+  object Memo1: TMemo
+    Left = 0
+    Height = 520
+    Top = 0
+    Width = 1198
+    Align = alClient
+    TabOrder = 0
+  end
+end

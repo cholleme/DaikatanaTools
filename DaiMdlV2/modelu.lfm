@@ -1,0 +1,268 @@
+object MainForm: TMainForm
+  Left = 650
+  Height = 720
+  Top = 374
+  Width = 1044
+  Caption = 'Daikatana model viewer'
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsMDIForm
+  Icon.Data = {
+    FE0200000000010001002020100000000000E802000016000000280000002000
+    0000400000000100040000000000800200000000000000000000000000000000
+    000000000000000080000080000000808000800000008000800080800000C0C0
+    C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFF
+    FF00000000000000000000000000000000000000000000000000000000000000
+    00000000000000000000000000000000000000000000BBBBBBBBBBBBBBBB0000
+    000000000000BBBBBBBBB00BBBBB0300000000000000BBBBBBBB090BBBBB0330
+    000099000000BBBBBBB0990BBBBB0333000000990000BBBBBB0990BBBBBB0333
+    009000009900BBBBB0990B000BBB0300099000009990BBBB0990BB09000B0309
+    9990000009900BB0990BBB00990000900990000000990B0990BBBBB099900303
+    309000000099000900BBBBB00999033330900000009900990BBBBBBBB0990333
+    3090000000099990BBBBBBBBB0990333309000000000900BBBBBBBBBB0990333
+    309000000000900BBBBBBBBBB0090333309000999999990000000BBBBB090333
+    309909999999999000000BBBBB090333309900000009999999999BBBBB090333
+    3099000000000900999000000B09033330990000000009000000009000090333
+    30990000000009000000999999900000309900000000090BBBB0000000999990
+    009900000000090BBBBBBBBBB00999999999000000009000BBBBBBBBBB000000
+    09900000000000000BBBBBBBBBBBBBBBB0000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000FFFFFFFFFFFFFFFFFE00007FFE00003FFE00001F1E00000F060000000000
+    000080000000E0000000E0000000F0000000F8000000F8000000FC000000FE00
+    000080000000000000000000000000000000FC000000FF000000FF000000FF00
+    0000FE000000FE200000FE300000FFF80003FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFF
+  }
+  Menu = MainMenu1
+  LCLVersion = '4.2.0.0'
+  WindowState = wsMaximized
+  OnClose = FormClose
+  OnDestroy = FormDestroy
+  object MainMenu1: TMainMenu
+    Left = 60
+    Top = 12
+    object File1: TMenuItem
+      Caption = 'File'
+      object OpenModel1: TMenuItem
+        Caption = 'Open model...'
+        OnClick = OpenModel1Click
+      end
+      object N2: TMenuItem
+        Caption = '-'
+      end
+      object Exit1: TMenuItem
+        Caption = 'Exit'
+        OnClick = Exit1Click
+      end
+    end
+    object View1: TMenuItem
+      Caption = 'View'
+      object Messages1: TMenuItem
+        Caption = 'Messages'
+        OnClick = Messages1Click
+      end
+      object Skins1: TMenuItem
+        Caption = 'Skins'
+        OnClick = Skins1Click
+      end
+      object Frames1: TMenuItem
+        Caption = 'Frames'
+        OnClick = Frames1Click
+      end
+      object N2Dskin1: TMenuItem
+        Caption = 'Skin wireframe'
+        OnClick = N2Dskin1Click
+      end
+      object N3: TMenuItem
+        Caption = '-'
+      end
+      object Front1: TMenuItem
+        Caption = 'Front'
+        OnClick = Front1Click
+      end
+      object Side1: TMenuItem
+        Caption = 'Side'
+        OnClick = Side1Click
+      end
+      object N3d1: TMenuItem
+        Caption = '3D'
+        OnClick = N3d1Click
+      end
+      object Weapon1: TMenuItem
+        Caption = 'Weapon'
+        OnClick = Weapon1Click
+      end
+    end
+    object Options1: TMenuItem
+      Caption = 'Options'
+      object Animate1: TMenuItem
+        Caption = 'Animate'
+        OnClick = Animate1Click
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object Skybox1: TMenuItem
+        Caption = 'Skybox'
+        object None1: TMenuItem
+          Caption = 'none'
+          Checked = True
+          Default = True
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object black1: TMenuItem
+          Caption = 'black'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e1m11: TMenuItem
+          Caption = 'e1m1'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e2m11: TMenuItem
+          Caption = 'e2m1'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e2m21: TMenuItem
+          Caption = 'e2m2'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e2m31: TMenuItem
+          Caption = 'e2m3'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e2m41: TMenuItem
+          Caption = 'e2m4'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3m11: TMenuItem
+          Caption = 'e3m1'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3m21: TMenuItem
+          Caption = 'e3m2'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3m41: TMenuItem
+          Caption = 'e3m4'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3m51: TMenuItem
+          Caption = 'e3m5'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3m61: TMenuItem
+          Caption = 'e3m6'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3mtn1: TMenuItem
+          Caption = 'e3mtn'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3mtn2a1: TMenuItem
+          Caption = 'e3mtn2a'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e3mtn51: TMenuItem
+          Caption = 'e3mtn5'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e4m11: TMenuItem
+          Caption = 'e4m1'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e4m21: TMenuItem
+          Caption = 'e4m2'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e4m31: TMenuItem
+          Caption = 'e4m3'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e4m51: TMenuItem
+          Caption = 'e4m5'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object e1: TMenuItem
+          Caption = 'e4m6'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+        object warp1: TMenuItem
+          Caption = 'warp'
+          GroupIndex = 1
+          RadioItem = True
+          OnClick = black1Click
+        end
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object More1: TMenuItem
+        Caption = 'More...'
+        GroupIndex = 1
+        OnClick = More1Click
+      end
+    end
+    object Help1: TMenuItem
+      Caption = 'Help'
+      object About1: TMenuItem
+        Caption = 'About'
+        OnClick = About1Click
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = 'Daikatana model files (*.dkm)|*.dkm'
+    Left = 12
+    Top = 12
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 67
+    OnTimer = Timer1Timer
+    Left = 108
+    Top = 12
+  end
+end

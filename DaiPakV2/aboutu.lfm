@@ -1,0 +1,116 @@
+object AboutBox: TAboutBox
+  Left = 294
+  Height = 282
+  Top = 187
+  Width = 447
+  BorderStyle = bsDialog
+  Caption = 'About'
+  ClientHeight = 282
+  ClientWidth = 447
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  object Panel1: TPanel
+    Left = 12
+    Height = 206
+    Top = 12
+    Width = 422
+    BevelInner = bvRaised
+    BevelOuter = bvLowered
+    ClientHeight = 206
+    ClientWidth = 422
+    TabOrder = 0
+    object ProgramIcon: TImage
+      Left = 9
+      Height = 32
+      Hint = 'Nice icon heh?'
+      Top = 21
+      Width = 32
+      AutoSize = True
+      ParentShowHint = False
+      Picture.Data = {
+        055449636F6EFE0200000000010001002020100000000000E802000016000000
+        2800000020000000400000000100040000000000800200000000000000000000
+        0000000000000000000000000000800000800000008080008000000080008000
+        80800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00
+        FFFF0000FFFFFF00000000000000000000000000000000000000000000000000
+        000000000000000000000878888888888888888000000000000008F000000000
+        0000078800000000000008F8F77777777007078880000000000008F8F7777777
+        0900078888000000990008F8F7780000990707888800000000990008F778FF09
+        907707888800009000009900F778B099070007888800099000009990F7780990
+        870900088809999000000990077099077700990080900990000000990F0990FF
+        FFF0999008000090000000990009008888800999080000900000009900990777
+        777770990800009000000809999000000000009908000090000008F090077777
+        7777009908000090000000009007777777770009080000900099999999000000
+        0777070908000099099999999990000007770709080000990000000999999999
+        977707090800009900000800090099900000070908000099000008F809000000
+        0090000908000099000008F8090FFFF09999999000000099000008F809088880
+        0000009999900099000008F0090777777777700999999999000008F0900FFFFF
+        FFFFFF000000099000000080007777777777777F8800000000000008F7777777
+        77777777F8000000000000008F777777777777777F0000000000000008888888
+        8888888888800000000000000000000000000000000000000000000000000000
+        0000000000000000FFFFFFFFF80001FFF80000FFF800007FF800003F1800001F
+        000000180000001080000000E0000000E0000000F0000018F8000018F8000018
+        F8000018F800001880000018000000180000001800000018F8000018F8000018
+        F8000008F8000000F8000000F8000000FC000010FE00001FFF00001FFF80001F
+        FFFFFFFFFFFFFFFF
+      }
+      ShowHint = True
+      Stretch = True
+    end
+    object Label1: TLabel
+      Left = 69
+      Height = 20
+      Top = 9
+      Width = 147
+      Caption = 'Daikatana pak editor'
+      ParentColor = False
+    end
+    object Label2: TLabel
+      Left = 69
+      Height = 20
+      Top = 33
+      Width = 236
+      Caption = '2000-2025 Charles Hollemeersch'
+      ParentColor = False
+    end
+    object Label3: TLabel
+      Left = 69
+      Height = 20
+      Top = 57
+      Width = 80
+      Caption = 'Version 1.1'
+      ParentColor = False
+    end
+    object Memo1: TMemo
+      Left = 9
+      Height = 110
+      Top = 81
+      Width = 398
+      BorderStyle = bsNone
+      Color = clBtnFace
+      Lines.Strings = (
+        'Updates:'
+        'charles.hollemeersch.net'
+        ''
+        'E-Mail:'
+        'chollemeersch@gmail.com'
+      )
+      ReadOnly = True
+      TabOrder = 0
+    end
+  end
+  object OKButton: TButton
+    Left = 166
+    Height = 38
+    Top = 234
+    Width = 112
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+end

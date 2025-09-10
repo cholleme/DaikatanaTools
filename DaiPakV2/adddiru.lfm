@@ -1,0 +1,73 @@
+object AddDirForm: TAddDirForm
+  Left = 427
+  Height = 319
+  Top = 131
+  Width = 334
+  BorderStyle = bsDialog
+  Caption = 'Import a directory tree'
+  ClientHeight = 319
+  ClientWidth = 334
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Position = poScreenCenter
+  LCLVersion = '2.0.12.0'
+  object Bevel1: TBevel
+    Left = 0
+    Height = 10
+    Top = 272
+    Width = 329
+    Shape = bsBottomLine
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 13
+    Top = 8
+    Width = 115
+    Caption = 'Select the root directory:'
+    ParentColor = False
+  end
+  object DirLabel: TLabel
+    Left = 64
+    Height = 13
+    Top = 256
+    Width = 119
+    Caption = 'E:\programmeren\daipak'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 13
+    Top = 256
+    Width = 47
+    Caption = 'Selection:'
+    ParentColor = False
+  end
+  object BitBtn1: TBitBtn
+    Left = 8
+    Height = 25
+    Top = 288
+    Width = 75
+    Kind = bkOK
+    OnClick = BitBtn1Click
+    TabOrder = 0
+  end
+  object BitBtn2: TBitBtn
+    Left = 88
+    Height = 25
+    Top = 288
+    Width = 75
+    Kind = bkCancel
+    TabOrder = 1
+  end
+  object ShellTreeView1: TShellTreeView
+    Left = 8
+    Height = 224
+    Top = 24
+    Width = 314
+    FileSortType = fstFoldersFirst
+    TabOrder = 2
+    OnSelectionChanged = ShellTreeView1SelectionChanged
+    ObjectTypes = [otFolders]
+  end
+end
