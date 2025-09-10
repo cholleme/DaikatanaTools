@@ -1,0 +1,216 @@
+# GitHub Actions Workflow for Building Lazarus Projects
+# 
+# This workflow automatically compiles all Lazarus (.lpr) projects in the repository
+# whenever changes are pushed to the main branch or when pull requests are created.
+#
+# Workflow Features:
+# - Automatically discovers all .lpr files in subdirectories
+# - Compiles each project using Lazarus/Free Pascal for Windows 32-bit target
+# - Fails the build if any project compilation fails
+# - Uploads compiled executables as artifacts for download and inspection
+# - Provides detailed logging for debugging compilation issues
+# - Only triggers on pushes or pull requests to the main branch
+#
+# Projects currently built by this workflow:
+# - DaiPakV2/daipak.lpr - Daikatana Pack file reader/manager
+# - DaiWalV2/daiwal.lpr - WAL texture viewer
+# - DaiMdlV2/modelview.lpr - 3D model viewer
+
+name: Build Lazarus Projects
+
+# Trigger conditions: only run on pushes or pull requests to main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-lazarus:
+    name: Build All Lazarus Projects (Win32)
+    runs-on: windows-latest
+    
+    steps:
+    # Step 1: Check out the repository code
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    # Step 2: Install Lazarus/Free Pascal compiler for Windows
+    # Using the official Lazarus installer to ensure we have all necessary components
+    - name: Install Lazarus and Free Pascal
+      run: |
+        Write-Host "Downloading Lazarus installer..."
+        $url = "https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2064%20bits/Lazarus%202.2.6/lazarus-2.2.6-fpc-3.2.2-win64.exe/download"
+        $output = "$env:TEMP\lazarus-installer.exe"
+        Invoke-WebRequest -Uri $url -OutFile $output -UserAgent "Mozilla/5.0"
+        
+        Write-Host "Installing Lazarus silently..."
+        Start-Process -FilePath $output -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
+        
+        Write-Host "Adding Lazarus to PATH..."
+        $lazarusPath = "C:\lazarus"
+        echo "$lazarusPath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        
+        Write-Host "Verifying installation..."
+        & "$lazarusPath\fpc\3.2.2\bin\i386-win32\fpc.exe" -i
+      shell: pwsh
+      
+    # Step 3: Discover all Lazarus project files (.lpr) in the repository
+    - name: Discover Lazarus project files
+      id: find-projects
+      run: |
+        Write-Host "Searching for Lazarus project files (.lpr)..."
+        $projectFiles = Get-ChildItem -Path "." -Filter "*.lpr" -Recurse | ForEach-Object { $_.FullName }
+        
+        if ($projectFiles.Count -eq 0) {
+          Write-Error "No Lazarus project files (.lpr) found in repository!"
+          exit 1
+        }
+        
+        Write-Host "Found $($projectFiles.Count) Lazarus project(s):"
+        foreach ($project in $projectFiles) {
+          Write-Host "  - $project"
+        }
+        
+        # Convert paths to relative and create JSON array for matrix strategy
+        $relativePaths = $projectFiles | ForEach-Object { 
+          [System.IO.Path]::GetRelativePath((Get-Location), $_).Replace('\', '/') 
+        }
+        $jsonArray = $relativePaths | ConvertTo-Json -Compress
+        echo "projects=$jsonArray" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+      shell: pwsh
+      
+    # Step 4: Build each discovered project
+    - name: Build Lazarus projects
+      run: |
+        $ErrorActionPreference = "Stop"
+        $projects = '${{ steps.find-projects.outputs.projects }}' | ConvertFrom-Json
+        $buildErrors = @()
+        $builtProjects = @()
+        
+        # Create output directory for compiled executables
+        New-Item -ItemType Directory -Path "build-output" -Force | Out-Null
+        
+        foreach ($project in $projects) {
+          Write-Host ""
+          Write-Host "=" * 80
+          Write-Host "Building project: $project"
+          Write-Host "=" * 80
+          
+          # Extract project directory and name
+          $projectDir = Split-Path -Parent $project
+          $projectName = [System.IO.Path]::GetFileNameWithoutExtension($project)
+          
+          try {
+            # Change to project directory
+            Push-Location $projectDir
+            
+            Write-Host "Current directory: $(Get-Location)"
+            Write-Host "Project file: $(Split-Path -Leaf $project)"
+            
+            # Compile the project for Win32 target
+            # -TWin32: Target Win32 platform
+            # -O2: Optimization level 2
+            # -CX: Enable smartlinking
+            # -XX: Enable smartlinking for units
+            $fpcArgs = @(
+              "-TWin32",
+              "-O2", 
+              "-CX",
+              "-XX",
+              "-v0",  # Reduce verbosity
+              "$(Split-Path -Leaf $project)"
+            )
+            
+            Write-Host "Executing: fpc $($fpcArgs -join ' ')"
+            & "C:\lazarus\fpc\3.2.2\bin\i386-win32\fpc.exe" @fpcArgs
+            
+            if ($LASTEXITCODE -ne 0) {
+              throw "Compilation failed with exit code $LASTEXITCODE"
+            }
+            
+            # Check if executable was created
+            $exeName = "$projectName.exe"
+            if (-not (Test-Path $exeName)) {
+              throw "Expected executable '$exeName' was not created"
+            }
+            
+            Write-Host "✓ Successfully built: $exeName"
+            
+            # Copy executable to build output directory with project path prefix
+            $outputName = "$($projectDir.Replace('\', '_').Replace('/', '_'))_$exeName"
+            Copy-Item $exeName "..\build-output\$outputName"
+            $builtProjects += @{
+              Project = $project
+              Executable = $outputName
+              Status = "Success"
+            }
+            
+          } catch {
+            Write-Error "✗ Failed to build $project`: $_"
+            $buildErrors += @{
+              Project = $project
+              Error = $_.Exception.Message
+            }
+          } finally {
+            Pop-Location
+          }
+        }
+        
+        # Summary report
+        Write-Host ""
+        Write-Host "=" * 80
+        Write-Host "BUILD SUMMARY"
+        Write-Host "=" * 80
+        Write-Host "Total projects: $($projects.Count)"
+        Write-Host "Successful builds: $($builtProjects.Count)"
+        Write-Host "Failed builds: $($buildErrors.Count)"
+        
+        if ($builtProjects.Count -gt 0) {
+          Write-Host ""
+          Write-Host "Successfully built projects:"
+          foreach ($built in $builtProjects) {
+            Write-Host "  ✓ $($built.Project) -> $($built.Executable)"
+          }
+        }
+        
+        if ($buildErrors.Count -gt 0) {
+          Write-Host ""
+          Write-Host "Failed projects:"
+          foreach ($error in $buildErrors) {
+            Write-Host "  ✗ $($error.Project): $($error.Error)"
+          }
+          
+          Write-Error "One or more projects failed to build. See above for details."
+          exit 1
+        }
+        
+        Write-Host ""
+        Write-Host "All projects built successfully! 🎉"
+      shell: pwsh
+      
+    # Step 5: Upload compiled executables as artifacts
+    # This allows developers to download and test the built applications
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: always()  # Upload artifacts even if some builds failed
+      with:
+        name: lazarus-executables-win32
+        path: build-output/
+        retention-days: 30
+        if-no-files-found: warn
+        
+    # Step 6: List artifact contents for verification
+    - name: List build artifacts
+      if: always()
+      run: |
+        Write-Host "Build artifacts created:"
+        if (Test-Path "build-output") {
+          Get-ChildItem "build-output" | ForEach-Object {
+            $size = [math]::Round($_.Length / 1KB, 2)
+            Write-Host "  - $($_.Name) ($size KB)"
+          }
+        } else {
+          Write-Host "  No artifacts created"
+        }
+      shell: pwsh
