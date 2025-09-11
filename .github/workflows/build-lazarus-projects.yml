@@ -40,7 +40,7 @@ jobs:
     - name: Install Lazarus and Free Pascal
       run: |
         Write-Host "Downloading Lazarus installer..."
-        $url = "https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2064%20bits/Lazarus%202.2.6/lazarus-2.2.6-fpc-3.2.2-win64.exe/download"
+        $url = "https://deac-riga.dl.sourceforge.net/project/lazarus/Lazarus%20Windows%2064%20bits/Lazarus%202.2.6/lazarus-2.2.6-fpc-3.2.2-win64.exe?viasf=1"
         $output = "$env:TEMP\lazarus-installer.exe"
         Invoke-WebRequest -Uri $url -OutFile $output -UserAgent "Mozilla/5.0"
         
