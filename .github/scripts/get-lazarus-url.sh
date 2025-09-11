@@ -11,7 +11,23 @@ echo "Fetching latest Lazarus release information from SourceForge..."
 test_url() {
     local url="$1"
     local timeout="${2:-10}"
-    curl -s -o /dev/null -w "%{http_code}" --connect-timeout "$timeout" --max-time "$timeout" -L --max-redirs 0 "$url" 2>/dev/null || echo "000"
+    
+    # Validate URL format first
+    if [[ ! "$url" =~ ^https?:// ]]; then
+        echo "000"
+        return
+    fi
+    
+    # Test the URL with proper error handling
+    local status
+    status=$(curl -s -o /dev/null -w "%{http_code}" \
+        --connect-timeout "$timeout" \
+        --max-time "$timeout" \
+        -L --max-redirs 0 \
+        --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+        "$url" 2>/dev/null) || echo "000"
+    
+    echo "$status"
 }
 
 # Method 1: Try to parse SourceForge directory listing for latest version
@@ -19,9 +35,14 @@ echo "Method 1: Attempting to fetch via SourceForge directory listing..."
 DIRECTORY_URL="https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2032%20bits/"
 
 # Try to get the directory page and extract version numbers
-VERSION_LIST=$(curl -s --connect-timeout 15 "$DIRECTORY_URL" 2>/dev/null | \
-    grep -o 'Lazarus%20[0-9][^"]*' | \
-    sed 's/Lazarus%20//' | \
+echo "Fetching directory listing from: $DIRECTORY_URL"
+VERSION_LIST=$(curl -s --connect-timeout 15 --max-time 30 \
+    --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+    "$DIRECTORY_URL" 2>/dev/null | \
+    grep -o 'href="[^"]*Lazarus%20[0-9][^"]*/"' | \
+    sed 's|href="[^"]*Lazarus%20||g' | \
+    sed 's|/"||g' | \
+    grep -E '^[0-9]+\.[0-9]+(\.[0-9]+)?$' | \
     sort -V | \
     tail -5)  # Get the 5 most recent versions
 
@@ -31,19 +52,25 @@ if [ -n "$VERSION_LIST" ]; then
     
     # Test each version from newest to oldest
     for VERSION in $(echo "$VERSION_LIST" | tac); do
+        echo "Testing version: $VERSION"
+        
         # Try different FPC version combinations that are commonly used
         for FPC_VERSION in "3.2.2" "3.2.0" "3.0.4"; do
             POTENTIAL_URL="https://downloads.sourceforge.net/project/lazarus/Lazarus%20Windows%2032%20bits/Lazarus%20$VERSION/lazarus-$VERSION-fpc-$FPC_VERSION-win32.exe"
-            echo "Testing: $POTENTIAL_URL"
+            echo "  Testing with FPC $FPC_VERSION: $POTENTIAL_URL"
             
             STATUS=$(test_url "$POTENTIAL_URL" 15)
             if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
                 DIRECT_URL="$POTENTIAL_URL"
                 echo "✓ Found working version: $VERSION with FPC $FPC_VERSION"
                 break 2
+            else
+                echo "    Status: $STATUS (not available)"
             fi
         done
     done
+else
+    echo "No versions found in directory listing"
 fi
 
 # Method 2: Fallback to known recent version patterns
