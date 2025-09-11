@@ -3,3 +3,14 @@
 
 # Ignore all files in any subfolder named 'lib'
 **/lib/**
+
+# Lazarus/Free Pascal build artifacts (only build-generated files)
+**/*.ppu
+**/*.o
+**/*.or
+**/*.compiled
+**/backup/
+**/units/
+
+# Lazarus session files (temporary files)
+**/*.lps
