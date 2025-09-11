@@ -1,0 +1,214 @@
+# GitHub Actions workflow for building Lazarus projects
+# Automatically fetches the latest Windows 32-bit Lazarus installer from SourceForge
+# Discovers and builds all .lpr projects in the repository
+
+name: Build Lazarus Projects
+
+# Trigger the workflow on pushes and pull requests to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Define environment variables used throughout the workflow
+env:
+  # Default Lazarus version to use if dynamic fetching fails
+  FALLBACK_LAZARUS_VERSION: "2.2.6"
+  # Installation directory for Lazarus
+  LAZARUS_INSTALL_DIR: "C:\\Lazarus"
+
+jobs:
+  build:
+    name: Build Lazarus Projects
+    runs-on: windows-latest
+    
+    steps:
+    # Step 1: Check out the repository code
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch full history for proper versioning
+        fetch-depth: 0
+
+    # Step 2: Discover all Lazarus project files (.lpr) in the repository
+    - name: Discover Lazarus projects
+      id: discover-projects
+      shell: bash
+      run: |
+        echo "Scanning repository for Lazarus project files (.lpr)..."
+        
+        # Find all .lpr files recursively
+        projects=$(find . -name "*.lpr" -type f | tr '\n' ' ')
+        
+        if [ -z "$projects" ]; then
+          echo "::error::No Lazarus project files (.lpr) found in the repository"
+          exit 1
+        fi
+        
+        echo "Found Lazarus projects:"
+        for project in $projects; do
+          echo "  - $project"
+        done
+        
+        # Export the project list for use in subsequent steps
+        # Convert to JSON array format for matrix builds if needed
+        projects_json=$(echo "$projects" | tr ' ' '\n' | grep -v '^$' | jq -R . | jq -s .)
+        echo "projects_json=$projects_json" >> $GITHUB_OUTPUT
+        echo "projects_list=$projects" >> $GITHUB_OUTPUT
+
+    # Step 3: Fetch the latest Lazarus installer URL from SourceForge
+    - name: Get latest Lazarus download URL
+      id: get-lazarus-url
+      shell: bash
+      run: |
+        echo "Fetching latest Lazarus installer URL from SourceForge..."
+        
+        # Make the script executable
+        chmod +x ./.github/scripts/get-lazarus-url.sh
+        
+        # Run the script to get the download URL
+        # The script will set LAZARUS_DOWNLOAD_URL in GITHUB_OUTPUT on success
+        if ./.github/scripts/get-lazarus-url.sh; then
+          echo "✓ Successfully obtained Lazarus download URL"
+        else
+          echo "⚠️ Failed to fetch latest URL, using fallback version ${{ env.FALLBACK_LAZARUS_VERSION }}"
+          fallback_url="https://downloads.sourceforge.net/project/lazarus/Lazarus%20Windows%2032%20bits/Lazarus%20${{ env.FALLBACK_LAZARUS_VERSION }}/lazarus-${{ env.FALLBACK_LAZARUS_VERSION }}-fpc-3.2.2-win32.exe"
+          echo "LAZARUS_DOWNLOAD_URL=$fallback_url" >> $GITHUB_OUTPUT
+        fi
+
+    # Step 4: Download and install Lazarus using the fetched URL
+    - name: Download and install Lazarus
+      shell: bash
+      run: |
+        download_url="${{ steps.get-lazarus-url.outputs.LAZARUS_DOWNLOAD_URL }}"
+        echo "Downloading Lazarus from: $download_url"
+        
+        # Create installation directory
+        mkdir -p "${{ env.LAZARUS_INSTALL_DIR }}"
+        
+        # Download the installer
+        installer_file="lazarus-installer.exe"
+        echo "Downloading installer..."
+        curl -L -o "$installer_file" "$download_url"
+        
+        if [ ! -f "$installer_file" ]; then
+          echo "::error::Failed to download Lazarus installer"
+          exit 1
+        fi
+        
+        # Install Lazarus silently
+        echo "Installing Lazarus..."
+        # Use silent install parameters for Lazarus installer
+        # /SILENT = silent install, /DIR = installation directory
+        # /NOCANCEL = prevent user from canceling
+        ./"$installer_file" /SILENT /DIR="${{ env.LAZARUS_INSTALL_DIR }}" /NOCANCEL
+        
+        # Wait for installation to complete
+        sleep 30
+        
+        # Verify installation
+        if [ -f "${{ env.LAZARUS_INSTALL_DIR }}/lazbuild.exe" ]; then
+          echo "✓ Lazarus installed successfully"
+          echo "Installation directory: ${{ env.LAZARUS_INSTALL_DIR }}"
+        else
+          echo "::error::Lazarus installation failed - lazbuild.exe not found"
+          exit 1
+        fi
+
+    # Step 5: Add Lazarus to PATH
+    - name: Setup Lazarus environment
+      shell: bash
+      run: |
+        # Add Lazarus installation directory to PATH
+        echo "${{ env.LAZARUS_INSTALL_DIR }}" >> $GITHUB_PATH
+        
+        # Verify lazbuild is accessible
+        export PATH="${{ env.LAZARUS_INSTALL_DIR }}:$PATH"
+        
+        echo "Verifying Lazarus installation..."
+        lazbuild --version || {
+          echo "::error::lazbuild not accessible after installation"
+          exit 1
+        }
+        
+        echo "✓ Lazarus environment setup complete"
+
+    # Step 6: Build all discovered Lazarus projects
+    - name: Build Lazarus projects
+      shell: bash
+      run: |
+        projects="${{ steps.discover-projects.outputs.projects_list }}"
+        
+        echo "Building discovered Lazarus projects..."
+        
+        # Track build results
+        success_count=0
+        error_count=0
+        
+        # Build each project
+        for project in $projects; do
+          echo "----------------------------------------"
+          echo "Building project: $project"
+          echo "----------------------------------------"
+          
+          # Get project directory
+          project_dir=$(dirname "$project")
+          project_name=$(basename "$project" .lpr)
+          
+          # Change to project directory
+          cd "$project_dir"
+          
+          # Build the project using lazbuild
+          if lazbuild --build-all --recursive "$project_name.lpr"; then
+            echo "✓ Successfully built: $project"
+            success_count=$((success_count + 1))
+          else
+            echo "✗ Failed to build: $project"
+            error_count=$((error_count + 1))
+          fi
+          
+          # Return to repository root
+          cd "$GITHUB_WORKSPACE"
+        done
+        
+        echo "----------------------------------------"
+        echo "Build Summary:"
+        echo "  Successful builds: $success_count"
+        echo "  Failed builds: $error_count"
+        echo "----------------------------------------"
+        
+        # Fail the workflow if any builds failed
+        if [ $error_count -gt 0 ]; then
+          echo "::error::$error_count project(s) failed to build"
+          exit 1
+        fi
+        
+        echo "✓ All projects built successfully!"
+
+    # Step 7: Archive build artifacts
+    - name: Archive build artifacts
+      if: always()  # Run even if previous steps failed
+      uses: actions/upload-artifact@v4
+      with:
+        name: lazarus-build-artifacts
+        path: |
+          **/*.exe
+          **/*.dll
+          **/*.res
+          **/lib/
+        retention-days: 7
+        if-no-files-found: warn
+
+    # Step 8: Display build summary
+    - name: Build summary
+      if: always()
+      shell: bash
+      run: |
+        echo "=== Lazarus Build Workflow Summary ==="
+        echo "Repository: ${{ github.repository }}"
+        echo "Branch: ${{ github.ref_name }}"
+        echo "Commit: ${{ github.sha }}"
+        echo "Lazarus URL used: ${{ steps.get-lazarus-url.outputs.LAZARUS_DOWNLOAD_URL }}"
+        echo "Projects found: ${{ steps.discover-projects.outputs.projects_list }}"
+        echo "======================================"
