@@ -123,7 +123,7 @@ jobs:
             }
             
             # Check if executable was created
-            $exeName = "$projectName.exe"
+            $exeName = ".\lib\i386-win32\$projectName.exe"
             if (-not (Test-Path $exeName)) {
               throw "Expected executable '$exeName' was not created"
             }
@@ -131,7 +131,7 @@ jobs:
             Write-Host "✓ Successfully built: $exeName"
             
             # Copy executable to build output directory with project path prefix
-            $outputName = "$($projectDir.Replace('\', '_').Replace('/', '_'))_$exeName"
+            $outputName = " $(Split-Path -Leaf $exeName)"
             Copy-Item $exeName "..\build-output\$outputName"
             $builtProjects += @{
               Project = $project
