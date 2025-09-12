@@ -52,7 +52,7 @@ jobs:
         echo "$lazarusPath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         
         Write-Host "Verifying installation..."
-        & "$lazarusPath\fpc\3.2.2\bin\i386-win32\fpc.exe" -i
+        & "$lazarusPath\lazbuild.exe" -v
       shell: pwsh
       
     # Step 3: Discover all Lazarus project files (.lpr) in the repository
@@ -109,21 +109,14 @@ jobs:
             Write-Host "Project file: $(Split-Path -Leaf $project)"
             
             # Compile the project for Win32 target
-            # -TWin32: Target Win32 platform
-            # -O2: Optimization level 2
-            # -CX: Enable smartlinking
-            # -XX: Enable smartlinking for units
             $fpcArgs = @(
-              "-TWin32",
-              "-O2", 
-              "-CX",
-              "-XX",
-              "-v0",  # Reduce verbosity
+              "--build-all",
+              "--verbose", 
               "$(Split-Path -Leaf $project)"
             )
             
-            Write-Host "Executing: fpc $($fpcArgs -join ' ')"
-            & "C:\lazarus\fpc\3.2.2\bin\i386-win32\fpc.exe" @fpcArgs
+            Write-Host "Executing: lazbuild $($fpcArgs -join ' ')"
+            & "$lazarusPath\lazbuild.exe" @fpcArgs
             
             if ($LASTEXITCODE -ne 0) {
               throw "Compilation failed with exit code $LASTEXITCODE"
