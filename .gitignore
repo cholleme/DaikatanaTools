@@ -3,3 +3,6 @@
 
 # Ignore all files in any subfolder named 'lib'
 **/lib/**
+
+# Ignore build output directory created by GitHub Actions
+build-output/
