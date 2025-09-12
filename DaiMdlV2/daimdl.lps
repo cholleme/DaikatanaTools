@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <ProjectOptions>
-    <Version Value="12"/>
+  <ProjectSession>
     <PathDelim Value="\"/>
-    <General>
-      <SessionStorage Value="InProjectDir"/>
-      <Title Value="modelview"/>
-      <UseAppBundle Value="False"/>
-      <ResourceType Value="res"/>
-    </General>
-    <BuildModes>
-      <Item Name="Default" Default="True"/>
-    </BuildModes>
-    <PublishOptions>
-      <Version Value="2"/>
-      <UseFileFilters Value="True"/>
-    </PublishOptions>
-    <RunParams>
-      <FormatVersion Value="2"/>
-    </RunParams>
-    <RequiredPackages>
-      <Item>
-        <PackageName Value="LCL"/>
-      </Item>
-    </RequiredPackages>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
     <Units>
       <Unit>
-        <Filename Value="modelview.lpr"/>
+        <Filename Value="daimdl.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos Y="33"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="modelu.pas"/>
@@ -35,6 +21,9 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="viewu.pas"/>
@@ -42,14 +31,17 @@
         <ComponentName Value="ViewForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="models.pas"/>
         <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="pakfiles.pas"/>
         <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="Mesu.pas"/>
@@ -57,6 +49,7 @@
         <ComponentName Value="Messageform"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="texu.pas"/>
@@ -64,6 +57,7 @@
         <ComponentName Value="WireForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="frameu.pas"/>
@@ -71,6 +65,7 @@
         <ComponentName Value="FrameForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="aboutu.pas"/>
@@ -78,11 +73,13 @@
         <ComponentName Value="AboutBox"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="daiwals.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="DaiWals"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="optu.pas"/>
@@ -90,10 +87,12 @@
         <ComponentName Value="OptionsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="textures.pas"/>
         <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="skinu.pas"/>
@@ -101,6 +100,7 @@
         <ComponentName Value="SkinForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="defsu.pas"/>
@@ -108,54 +108,39 @@
         <ComponentName Value="DefsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="FastBMP.pas"/>
         <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="FastRGB.pas"/>
         <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
       </Unit>
       <Unit>
         <Filename Value="GL.pas"/>
         <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
+      </Unit>
+      <Unit>
+        <Filename Value="modelview.lpr"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="15"/>
+        <UsageCount Value="20"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
-  </ProjectOptions>
-  <CompilerOptions>
-    <Version Value="11"/>
-    <PathDelim Value="\"/>
-    <SearchPaths>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
-    </SearchPaths>
-    <Parsing>
-      <SyntaxOptions>
-        <SyntaxMode Value="delphi"/>
-      </SyntaxOptions>
-    </Parsing>
-    <Linking>
-      <Debugging>
-        <DebugInfoType Value="dsDwarf3"/>
-      </Debugging>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
-    </Linking>
-  </CompilerOptions>
-  <Debugging>
-    <Exceptions>
-      <Item>
-        <Name Value="EAbort"/>
-      </Item>
-      <Item>
-        <Name Value="ECodetoolError"/>
-      </Item>
-      <Item>
-        <Name Value="EFOpenError"/>
-      </Item>
-    </Exceptions>
-  </Debugging>
+    <JumpHistory>
+      <Position>
+        <Filename Value="modelu.pas"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
 </CONFIG>
