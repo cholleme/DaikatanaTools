@@ -24,7 +24,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+    
 jobs:
   build-lazarus:
     name: Build All Lazarus Projects (Win32)
@@ -116,7 +116,7 @@ jobs:
             )
             
             Write-Host "Executing: lazbuild $($fpcArgs -join ' ')"
-            & "$lazarusPath\lazbuild.exe" @fpcArgs
+            & "C:\lazarus\lazbuild.exe" @fpcArgs
             
             if ($LASTEXITCODE -ne 0) {
               throw "Compilation failed with exit code $LASTEXITCODE"
