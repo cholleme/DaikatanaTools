@@ -1,4 +1,4 @@
-program modelview;
+program daimdl;
 
 {$MODE Delphi}
 
